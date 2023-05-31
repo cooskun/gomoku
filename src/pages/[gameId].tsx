@@ -1,12 +1,10 @@
-import { useState, useEffect, FC } from "react";
+import { useEffect, FC } from "react";
 import { useRouter } from "next/router";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { getAuth, signInAnonymously } from "firebase/auth";
 import { readGameData } from "@/utils/service";
 import { GameData, PlayersData, ReadGameData } from "@/utils/types";
+import { useAuth } from "@/utils/hooks";
 import { Viewport, Board } from "@/components";
-
-const auth = getAuth();
 
 interface Props {
   data: GameData & PlayersData;
@@ -31,13 +29,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 
 const Page: FC<Props> = ({ data, gameId, isLoaded }) => {
   const router = useRouter();
-  const [playerId, setPlayerId] = useState<string | null>(null);
-
-  useEffect(() => {
-    signInAnonymously(auth)
-      .then((response) => setPlayerId(response.user.uid))
-      .catch((error) => console.log(error));
-  }, []);
+  const playerId = useAuth();
 
   useEffect(() => {
     if (!isLoaded) {

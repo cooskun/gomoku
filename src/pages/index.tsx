@@ -1,23 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { getAuth, signInAnonymously } from "firebase/auth";
 import { createNewGame } from "@/utils/service";
 import { Button, Viewport } from "@/components";
-
-const auth = getAuth();
+import { useAuth } from "@/utils/hooks";
 
 export default function Home() {
   const router = useRouter();
-  const [playerId, setPlayerId] = useState<null | string>(null);
+  const playerId = useAuth();
   const [gameIdToJoin, setGameIdToJoin] = useState("");
-
-  useEffect(() => {
-    signInAnonymously(auth)
-      .then((response) => setPlayerId(response.user.uid))
-      .catch((error) => console.log(error));
-  }, []);
 
   const clickHandler = async () => {
     if (playerId) {
