@@ -5,6 +5,10 @@ export const checkWinner = (squares: Squares, rows: number) => {
   let winningSquares: WinningSquares = null;
 
   squares.forEach((square, index) => {
+    if (winnerSymbol && winningSquares) {
+      return { winnerSymbol, winningSquares };
+    }
+
     if (square) {
       // Horizontal winning control
       if (
