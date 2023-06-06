@@ -1,25 +1,15 @@
 "use client";
 
-import { useState, useRef, useEffect, FC } from "react";
+import { useEffect, FC } from "react";
 import { checkWinner } from "@/utils/checkWinner";
+import { useGameState } from "@/utils/hooks";
 import { ROWS_IN_BOARD, HOST, GUEST } from "@/utils/constants";
 import {
   reloadGameData,
-  onGameSnapshot,
   updateGameData,
   addGuestPlayerToGame,
 } from "@/utils/service";
-import {
-  GameData,
-  PlayersData,
-  WinningSquares,
-  Winner,
-  Squares,
-  Score,
-  Players,
-  Turn,
-  Square as SquareType,
-} from "@/utils/types";
+import { GameData, PlayersData, Square as SquareType } from "@/utils/types";
 import { Button, Square } from "./index";
 
 interface Props {
@@ -29,45 +19,17 @@ interface Props {
 }
 
 const Board: FC<Props> = ({ data, gameId, playerId }) => {
-  const squaresRef = useRef(data.squares);
-  const isGameFull: boolean =
-    Object.keys(data?.players).length === 2 &&
-    playerId !== data?.players.host.id &&
-    playerId !== data?.players.guest.id;
-  const [turn, setTurn] = useState<Turn>(data.turn);
-  const [players, setPlayers] = useState<Players>(data.players);
-  const [score, setScore] = useState<Score>(data.score);
-  const [squares, setSquares] = useState<Squares>(data.squares);
-  const [winner, setWinner] = useState<Winner>(data.winner);
-  const [winningSquares, setWinningSquares] = useState<
-    WinningSquares | undefined
-  >(data.winningSquares);
-  const [isYourTurn, setIsYourTurn] = useState<boolean>(
-    playerId === data.players[turn]?.id
-  );
-  const [areYouWinner, setAreYouWinner] = useState<boolean>(
-    winner ? playerId === data?.players[winner]?.id : false
-  );
-
-  onGameSnapshot(gameId, (snapshot: GameData & PlayersData) => {
-    if (
-      JSON.stringify(squaresRef.current) !== JSON.stringify(snapshot?.squares)
-    ) {
-      squaresRef.current = snapshot.squares;
-      setSquares(snapshot.squares);
-      setWinner(snapshot.winner);
-      setWinningSquares(snapshot.winningSquares);
-      setTurn(snapshot.turn);
-      setPlayers(snapshot.players);
-      setIsYourTurn(playerId === snapshot.players[snapshot.turn]?.id);
-      setAreYouWinner(
-        snapshot.winner
-          ? playerId === snapshot.players[snapshot.winner]?.id
-          : false
-      );
-      setScore(snapshot.score);
-    }
-  });
+  const {
+    squares,
+    winningSquares,
+    winner,
+    areYouWinner,
+    isGameFull,
+    isYourTurn,
+    turn,
+    score,
+    players,
+  } = useGameState({ data, gameId, playerId });
 
   const squareHandler = async (index: number, value: SquareType) => {
     if (value) return;
