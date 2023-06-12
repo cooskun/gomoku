@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;800&family=Oswald:wght@700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -17,13 +19,7 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  font-family: 'Oswald', sans-serif;
 }
 
 .App {
@@ -37,8 +33,4 @@ body {
 
 .square:is(:focus, :hover, :active) {
   outline: none;
-}
-
-.square.is-winner-line {
-  color: red;
 }
