@@ -12,6 +12,16 @@ module.exports = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      fontFamily: {
+        oswald: "'Oswald', sans-serif",
+        nunito: "'Nunito', sans-serif",
+      },
+      fontSize: {
+        waterfall: "30rem",
+      },
+      borderWidth: {
+        waterfall: "20px",
+      },
       gridTemplateColumns: {
         board: "repeat(19, 1fr)",
       },
