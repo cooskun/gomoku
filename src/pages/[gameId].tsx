@@ -4,7 +4,7 @@ import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { readGameData } from "@/utils/service";
 import { GameData, PlayersData, ReadGameData } from "@/utils/types";
 import { useAuth } from "@/utils/hooks";
-import { Viewport, Board } from "@/components";
+import { Board } from "@/components";
 
 interface Props {
   data: GameData & PlayersData;
@@ -39,11 +39,7 @@ const Page: FC<Props> = ({ data, gameId, isLoaded }) => {
 
   if (!playerId) return null;
 
-  return (
-    <Viewport>
-      <Board data={data} playerId={playerId} gameId={gameId} />
-    </Viewport>
-  );
+  return <Board data={data} playerId={playerId} gameId={gameId} />;
 };
 
 export default Page;

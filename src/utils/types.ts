@@ -1,6 +1,6 @@
 export type Symbol = "X" | "O";
-export type Square = Symbol | null;
-export type Squares = Square[];
+export type SquareValue = Symbol | null;
+export type Squares = SquareValue[];
 export type Sides = "host" | "guest";
 export type Turn = Sides;
 export type Winner = Sides | undefined | null;
