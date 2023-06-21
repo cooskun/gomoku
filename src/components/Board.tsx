@@ -107,10 +107,10 @@ const Board: FC<Props> = ({ data, gameId, playerId }) => {
         <span className="relative right-40">X</span>
         <span className="relative left-56">O</span>
       </Waterfall>
-      <h1 className="text-center text-rose-900 text-7xl">
+      <h1 className="text-center text-indigo-900 text-7xl">
         {score?.host} - {score?.guest}
       </h1>
-      <p className="mb-5 text-center text-7xl text-rose-900">
+      <p className="mb-5 text-center text-7xl text-indigo-900">
         {cx({
           "You won": winner && areYouWinner,
           "You lost": winner && !areYouWinner,

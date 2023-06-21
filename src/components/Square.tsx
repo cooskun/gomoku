@@ -19,12 +19,12 @@ const Square: FC<Props> = ({
   const buttonClasses = cx(
     "w-8 aspect-square",
     "font-nunito font-extrabold text-2xl leading-7",
-    "cursor-none select-none hover:bg-rose-900/30",
-    "border-rose-900",
+    "cursor-none select-none hover:bg-indigo-900/30",
+    "border-indigo-900",
     {
-      "text-blue-900": value === "X",
-      "text-green-900": value !== "X",
-      "bg-rose-900/30": isWinningSquare,
+      "text-green-900": value === "X",
+      "text-yellow-300": value !== "X",
+      "bg-indigo-900/30": isWinningSquare,
       "border-t-2": index > 18,
       "border-l-2": index % 19 !== 0,
     }

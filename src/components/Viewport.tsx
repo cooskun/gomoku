@@ -9,7 +9,7 @@ interface Props {
 const Main: FC<Props> = ({ children, shouldHideCursor }) => {
   const classes = cx(
     "relative h-screen p8",
-    "bg-rose-400 text-white",
+    "bg-indigo-300 text-white",
     "flex flex-col items-center justify-center gap-4",
     { "cursor-none": shouldHideCursor }
   );

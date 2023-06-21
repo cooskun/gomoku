@@ -27,7 +27,7 @@ const Cursor: FC<Props> = ({ value }) => {
   return (
     <div
       ref={cursorRef}
-      className="font-nunito font-extrabold text-rose-900 text-2xl fixed pointer-events-none z-50"
+      className="font-nunito font-extrabold text-indigo-900 text-2xl fixed pointer-events-none z-50"
     >
       {value}
     </div>

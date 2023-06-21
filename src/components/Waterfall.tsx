@@ -8,7 +8,7 @@ interface Props {
 const Waterfall: FC<Props> = ({ children, className }) => {
   return (
     <div
-      className={`font-nunito font-thin text-waterfall leading-none text-rose-900/20 pointer-events-none ${className}`}
+      className={`font-nunito font-thin text-waterfall leading-none text-indigo-900/40 pointer-events-none ${className}`}
     >
       {children}
     </div>

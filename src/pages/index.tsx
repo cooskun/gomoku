@@ -33,7 +33,7 @@ export default function Home() {
           <input
             type="text"
             placeholder="Game id here"
-            className="bg-rose-300 p-4 text-rose-900 text-2xl rounded-l-lg placeholder:text-rose-900/50 placeholder:italic outline-rose-900"
+            className="bg-indigo-100 p-4 text-rose-900 text-2xl rounded-l-lg placeholder:text-indigo-900/50 placeholder:italic outline-rose-900"
             value={gameIdToJoin}
             onChange={(e) => setGameIdToJoin(e.target.value)}
           />
