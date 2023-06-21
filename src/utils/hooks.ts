@@ -11,6 +11,7 @@ import {
   Winner,
   GameSnapshot,
 } from "./types";
+import { HOST_SYMBOL, GUEST_SYMBOL } from "./constants";
 
 export const useAuth = () => {
   const [playerId, setPlayerId] = useState<string | null>(null);
@@ -27,6 +28,8 @@ export const useAuth = () => {
 };
 
 export const useGameState = ({ data, gameId, playerId }: GameState) => {
+  const playerSymbol =
+    playerId === data.players.host.id ? HOST_SYMBOL : GUEST_SYMBOL;
   const squaresRef = useRef(data.squares);
   const isGameFull: boolean =
     Object.keys(data?.players).length === 2 &&
@@ -77,5 +80,6 @@ export const useGameState = ({ data, gameId, playerId }: GameState) => {
     isGameFull,
     players,
     score,
+    playerSymbol,
   };
 };
