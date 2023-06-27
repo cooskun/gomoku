@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useAnimate } from "framer-motion";
-import { FaPlus, FaRegCircle } from "react-icons/fa6";
+import { ImPlus as IconX } from "react-icons/im";
+import { BsRecordCircleFill as IconO } from "react-icons/bs";
 
 const X = 20;
 const DELAY = 0.3;
@@ -19,7 +20,7 @@ const Loading = () => {
       /* 1 */
       animate(
         xSelector,
-        { x: [-X, 0], rotate: [-CHILD_ROTATION, 0], scale: [1.1795, 1.1795] },
+        { x: [-X, 0], rotate: [-CHILD_ROTATION, 0] },
         { delay: DELAY }
       );
       await animate(oSelector, { x: [X, 0] }, { delay: DELAY });
@@ -51,12 +52,12 @@ const Loading = () => {
   }, [animate, scope]);
 
   return (
-    <div ref={scope} className="flex text-8xl">
-      <span>
-        <FaPlus size="" />
+    <div ref={scope} className="flex text-8xl text-indigo-900">
+      <span className="-mr-1">
+        <IconX />
       </span>
-      <span>
-        <FaRegCircle />
+      <span className="-ml-1">
+        <IconO />
       </span>
     </div>
   );
