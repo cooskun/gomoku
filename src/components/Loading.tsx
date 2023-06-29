@@ -10,6 +10,7 @@ const CONTAINER_ROTATION = 180;
 
 const xSelector = "span:nth-child(1)";
 const oSelector = "span:nth-child(2)";
+
 const Loading = () => {
   const containerRotation = useRef(0);
   const [scope, animate] = useAnimate();
