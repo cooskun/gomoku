@@ -18,14 +18,13 @@ const Loading = () => {
 
   useEffect(() => {
     if (!isMotionReduced) {
-      const animation = async () => {
-        const checkSelectors = () => {
-          return (
-            document.querySelector(xSelector) &&
-            document.querySelector(oSelector)
-          );
-        };
+      const checkSelectors = () => {
+        return (
+          document.querySelector(xSelector) && document.querySelector(oSelector)
+        );
+      };
 
+      const animation = async () => {
         if (scope?.current && checkSelectors()) {
           // 1
           animate(
