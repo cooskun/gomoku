@@ -7,10 +7,10 @@ import { Button, Viewport, Waterfall, Loading } from "@/components";
 import { useAuth } from "@/utils/hooks";
 
 export default function Home() {
-  const [isGameLoading, setIsGameLoading] = useState(false);
   const router = useRouter();
   const playerId = useAuth();
   const [gameIdToJoin, setGameIdToJoin] = useState("");
+  const [isGameLoading, setIsGameLoading] = useState(false);
 
   const clickHandler = async () => {
     setIsGameLoading(true);
