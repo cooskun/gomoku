@@ -16,7 +16,9 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   context: GetServerSidePropsContext
 ) => {
   const { gameId } = context.query;
-  const { isLoaded, data }: ReadGameData = await readGameData(gameId as string);
+  const { isLoaded, data = null }: ReadGameData = await readGameData(
+    gameId as string
+  );
 
   return {
     props: {

@@ -35,7 +35,7 @@ export type GameData = {
 
 export type ReadGameData = {
   isLoaded: boolean;
-  data: GameData | undefined;
+  data: GameData | null;
 };
 
 export type GameState = {

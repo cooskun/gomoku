@@ -50,25 +50,27 @@ export const useGameState = ({ data, gameId, playerId }: GameState) => {
     winner ? playerId === data?.players[winner]?.id : false
   );
 
-  onGameSnapshot(gameId, (snapshot: GameSnapshot) => {
-    if (
-      JSON.stringify(squaresRef.current) !== JSON.stringify(snapshot?.squares)
-    ) {
-      squaresRef.current = snapshot.squares;
-      setSquares(snapshot.squares);
-      setWinner(snapshot.winner);
-      setWinningSquares(snapshot.winningSquares);
-      setTurn(snapshot.turn);
-      setPlayers(snapshot.players);
-      setIsYourTurn(playerId === snapshot.players[snapshot.turn]?.id);
-      setAreYouWinner(
-        snapshot.winner
-          ? playerId === snapshot.players[snapshot.winner]?.id
-          : false
-      );
-      setScore(snapshot.score);
-    }
-  });
+  setTimeout(() => {
+    onGameSnapshot(gameId, (snapshot: GameSnapshot) => {
+      if (
+        JSON.stringify(squaresRef.current) !== JSON.stringify(snapshot?.squares)
+      ) {
+        squaresRef.current = snapshot.squares;
+        setSquares(snapshot.squares);
+        setWinner(snapshot.winner);
+        setWinningSquares(snapshot.winningSquares);
+        setTurn(snapshot.turn);
+        setPlayers(snapshot.players);
+        setIsYourTurn(playerId === snapshot.players[snapshot.turn]?.id);
+        setAreYouWinner(
+          snapshot.winner
+            ? playerId === snapshot.players[snapshot.winner]?.id
+            : false
+        );
+        setScore(snapshot.score);
+      }
+    });
+  }, 1000);
 
   return {
     squares,
