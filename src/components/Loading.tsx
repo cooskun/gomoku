@@ -42,7 +42,7 @@ const Loading = () => {
             });
           }
 
-          if (checkSelectors()) {
+          if (scope?.current && checkSelectors()) {
             // 3
             animate(xSelector, {
               x: -X,
@@ -51,7 +51,7 @@ const Loading = () => {
             await animate(oSelector, { x: X });
           }
 
-          if (checkSelectors()) {
+          if (scope?.current && checkSelectors()) {
             // 4
             animate(xSelector, { x: 0, rotate: 0 }, { delay: DELAY });
             await animate(oSelector, { x: 0 }, { delay: DELAY });
@@ -65,7 +65,7 @@ const Loading = () => {
             });
           }
 
-          if (checkSelectors()) {
+          if (scope?.current && checkSelectors()) {
             // 6
             animate(xSelector, { x: -X, rotate: -CHILD_ROTATION });
             await animate(oSelector, { x: X });
