@@ -1,6 +1,4 @@
-"use client";
-
-import { useEffect, FC } from "react";
+import { useEffect, useState, FC } from "react";
 import { checkWinner } from "@/utils/checkWinner";
 import { useGameState } from "@/utils/hooks";
 import { ROWS_IN_BOARD, HOST, GUEST } from "@/utils/constants";
@@ -10,7 +8,7 @@ import {
   addGuestPlayerToGame,
 } from "@/utils/service";
 import { GameData, PlayersData, SquareValue } from "@/utils/types";
-import { Button, Square, Cursor, Viewport, Waterfall } from "./index";
+import { Button, Square, Cursor, Viewport, Waterfall, Loading } from "./index";
 import cx from "classnames";
 import { motion, AnimatePresence, useWillChange } from "framer-motion";
 
@@ -38,19 +36,27 @@ const boardClasses = cx(
 );
 
 const Board: FC<Props> = ({ data, gameId, playerId }) => {
+  const { gameState } = useGameState({
+    data,
+    gameId,
+    playerId,
+  });
   const {
+    players,
     squares,
-    winningSquares,
-    winner,
-    areYouWinner,
-    isGameFull,
-    isYourTurn,
     turn,
     score,
-    players,
+    winner,
+    winningSquares,
     playerSymbol,
-  } = useGameState({ data, gameId, playerId });
+    isGameFull,
+    isYourTurn,
+    areYouWinner,
+  } = gameState;
   const willChange = useWillChange();
+  const [isBoardReady, setIsBoardReady] = useState(
+    playerId === players?.["host"]?.id ? true : false
+  );
 
   const squareHandler = async (index: number, value: SquareValue) => {
     if (value) return;
@@ -88,6 +94,10 @@ const Board: FC<Props> = ({ data, gameId, playerId }) => {
   };
 
   useEffect(() => {
+    setTimeout(() => setIsBoardReady(true), 1000);
+  }, []);
+
+  useEffect(() => {
     if (!isGameFull && data.players.host.id !== playerId) {
       addGuestPlayerToGame(gameId, playerId);
     }
@@ -103,59 +113,65 @@ const Board: FC<Props> = ({ data, gameId, playerId }) => {
 
   return (
     <Viewport shouldHideCursor>
-      <Waterfall className="w-full absolute top-0 overflow-hidden text-center">
-        <span className="relative right-40">X</span>
-        <span className="relative left-56">O</span>
-      </Waterfall>
-      <h1 className="text-center text-indigo-900 text-7xl">
-        {score?.host} - {score?.guest}
-      </h1>
-      <p className="mb-5 text-center text-7xl text-indigo-900">
-        {cx({
-          "You won": winner && areYouWinner,
-          "You lost": winner && !areYouWinner,
-          "Your Turn": !winner && isYourTurn,
-          "Opponent's Turn": !winner && !isYourTurn,
-        })}
-      </p>
-      <motion.section
-        variants={boardVariants}
-        initial="exit"
-        animate={winner ? "enter" : "exit"}
-        className={boardClasses}
-        style={{ willChange }}
-      >
-        {squares?.map((value: SquareValue, index: number) => {
-          return (
-            <Square
-              key={index}
-              value={value}
-              index={index}
-              onClick={() => squareHandler(index, value)}
-              disabled={Boolean(winner) || !isYourTurn}
-              isWinningSquare={Boolean(winningSquares?.includes(index))}
-            />
-          );
-        })}
-      </motion.section>
-      <AnimatePresence>
-        {winner && (
+      {!isBoardReady && <Loading />}
+      {isBoardReady && (
+        <>
+          <Waterfall className="w-full absolute top-0 overflow-hidden text-center">
+            <span className="relative right-40">X</span>
+            <span className="relative left-56">O</span>
+          </Waterfall>
+          <h1 className="text-center text-indigo-900 text-7xl">
+            {score?.host} - {score?.guest}
+          </h1>
+          <p className="mb-5 text-center text-7xl text-indigo-900">
+            {cx({
+              "You won": winner && areYouWinner,
+              "You lost": winner && !areYouWinner,
+              "Your Turn": !winner && isYourTurn,
+              "Opponent's Turn": !winner && !isYourTurn,
+            })}
+          </p>
           <motion.section
-            initial={buttonVariants.initial}
-            animate={buttonVariants.enter}
-            exit={buttonVariants.exit}
-            className="absolute bottom-8 text-center"
+            variants={boardVariants}
+            initial="exit"
+            animate={winner ? "enter" : "exit"}
+            className={boardClasses}
             style={{ willChange }}
           >
-            <Button
-              className="rounded-xl cursor-none"
-              onClick={() => reloadGameData(gameId)}
-            >
-              Play Again
-            </Button>
+            {squares?.map((value: SquareValue, index: number) => {
+              return (
+                <Square
+                  key={index}
+                  value={value}
+                  index={index}
+                  onClick={() => squareHandler(index, value)}
+                  disabled={Boolean(winner) || !isYourTurn}
+                  isWinningSquare={Boolean(winningSquares?.includes(index))}
+                />
+              );
+            })}
           </motion.section>
-        )}
-      </AnimatePresence>
+          <AnimatePresence>
+            {winner && (
+              <motion.section
+                initial={buttonVariants.initial}
+                animate={buttonVariants.enter}
+                exit={buttonVariants.exit}
+                className="absolute bottom-8 text-center"
+                style={{ willChange }}
+              >
+                <Button
+                  className="rounded-xl cursor-none"
+                  onClick={() => reloadGameData(gameId)}
+                >
+                  Play Again
+                </Button>
+              </motion.section>
+            )}
+          </AnimatePresence>
+        </>
+      )}
+
       <Cursor value={playerSymbol} />
     </Viewport>
   );
