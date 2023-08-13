@@ -1,4 +1,4 @@
-import { useEffect, FC, useState } from "react";
+import { useEffect, useState, FC } from "react";
 import { checkWinner } from "@/utils/checkWinner";
 import { useGameState } from "@/utils/hooks";
 import { ROWS_IN_BOARD, HOST, GUEST } from "@/utils/constants";
@@ -95,7 +95,7 @@ const Board: FC<Props> = ({ data, gameId, playerId }) => {
 
   useEffect(() => {
     setTimeout(() => setIsBoardReady(true), 1000);
-  }, [playerId, players]);
+  }, []);
 
   useEffect(() => {
     if (!isGameFull && data.players.host.id !== playerId) {
