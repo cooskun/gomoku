@@ -103,7 +103,7 @@ const Board: FC<Props> = ({ data, gameId, playerId }) => {
 
   return (
     <Viewport shouldHideCursor>
-      <Waterfall className="absolute top-0">
+      <Waterfall className="w-full absolute top-0 overflow-hidden text-center">
         <span className="relative right-40">X</span>
         <span className="relative left-56">O</span>
       </Waterfall>
