@@ -37,7 +37,7 @@ export const useGameState = ({ data, gameId, playerId }: GameState) => {
     playerId === players.host.id ? HOST_SYMBOL : GUEST_SYMBOL;
 
   /* Two players already joined */
-  /* Make sure player who wants to join is not of joined players */
+  /* Make sure player who wants to join is not one of joined players */
   const isGameFull: boolean =
     Object.keys(players).length === 2 &&
     playerId !== players.host.id &&
