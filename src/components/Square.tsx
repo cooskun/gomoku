@@ -22,7 +22,7 @@ const Square: FC<Props> = ({
     "cursor-none select-none hover:bg-indigo-900/30",
     "border-indigo-900",
     {
-      "text-green-900": value === "X",
+      "text-white": value === "X",
       "text-yellow-300": value !== "X",
       "bg-indigo-900/30": isWinningSquare,
       "border-t-2": index > 18,
