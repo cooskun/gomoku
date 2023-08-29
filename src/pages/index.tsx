@@ -48,7 +48,7 @@ export default function Home() {
             </p>
           </div>
           <div className="absolute">
-            <Waterfall>O X</Waterfall>
+            <Waterfall>X O</Waterfall>
           </div>
         </>
       )}
